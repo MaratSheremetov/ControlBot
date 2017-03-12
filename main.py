@@ -47,7 +47,7 @@ def callback_inline(call):
     cur.execute("SELECT id_metric, token FROM users WHERE id_users = " + str(call.message.chat.id))
     row = cur.fetchone()
     try:
-        print(str(row[0])+str(row[1]))
+
 
         if call.data == "Сводка":
             inlineMakup = telebot.types.InlineKeyboardMarkup()  # Создаём мень клавиатуры
@@ -90,43 +90,52 @@ def callback_inline(call):
             data_day = json.loads(r_get_svodka_day.text)["totals"]
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                   text="Визиты - " + str(data_day[0]) + "\nПоситители - " + str(
-                                      data_day[1]) + "\nПросмотры - " + str(data_day[2]) + "\nОтказы - " + str(
-                                      data_day[3]) + "\nГлубина просмотра - " + str(
-                                      data_day[4]) + "\nСредняя длительность посещения в секундах - " + str(data_day[5]))
+                                      data_day[1]) + "\nПросмотры - " + str(data_day[2]) + "\nПроцент новых пользователей - " + str(
+                                      data_day[3]) + "\nОтказы - " + str(
+                                      data_day[4]) + "\nГлубина просмотра - " + str(data_day[5]) + "\nСредняя длительность посещения в секундах - "
+                                      + str(data_day[6]))
         if (call.data == "Сводка_Неделя"):
             r_get_svodka_week = requests.get(YM.general_url + YM.time + YM.ids + str(row[0]) + "&" + YM.preset + YM.traffic + "&" + YM.date1 + "7daysAgo" + "&" + YM.date2 + "today" + "&" + YM.oauth_token + row[1])
             data_week = json.loads(r_get_svodka_week.text)["totals"]
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                                  text="Визиты - " + str(data_week[0]) + "\nПоситители - " + str(
-                                      data_week[1]) + "\nПросмотры - " + str(data_week[2]) + "\nОтказы - " + str(
-                                      data_week[3]) + "\nГлубина просмотра - " + str(
-                                      data_week[4]) + "\nСредняя длительность посещения в секундах - " + str(data_week[5]) )
+                                  text="Визиты - " + str(data_week[0][0]) + "\nПоситители - " + str(
+                                      data_week[1][0]) + "\nПросмотры - " + str(data_week[2][0]) + "\nПроцент новых пользователей - " + str(
+                                      data_week[3][0]) + "\nОтказы - " + str(
+                                      data_week[4][0]) + "\nГлубина просмотра - "  + str(data_week[5][0]) + "\nСредняя длительность посещения в секундах - "+ str(
+                                      data_week[6][0])
+                                  )
         if (call.data == "Сводка_Месяц"):
             r_get_svodka_month = requests.get(YM.general_url + YM.time + YM.ids + str(row[0]) + "&" + YM.preset + YM.traffic + "&" + YM.date1 + "7daysAgo" + "&" + YM.date2 + "today" + "&" + YM.oauth_token + row[1])
             data_month = json.loads(r_get_svodka_month.text)["totals"]
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                                  text="Визиты - " + str(data_month[0]) + "\nПоситители - " + str(
-                                      data_month[1]) + "\nПросмотры - " + str(data_month[2]) + "\nОтказы - " + str(
-                                      data_month[3]) + "\nГлубина просмотра - " + str(
-                                      data_month[4]) + "\nСредняя длительность посещения в секундах - " + str(data_month[5]))
+                                  text="Визиты - " + str(data_month[0][0]) + "\nПоситители - " + str(
+                                      data_month[1][0]) + "\nПросмотры - " + str(data_month[2][0]) + "\nПроцент новых пользователей - " + str(
+                                      data_month[3][0]) + "\nОтказы - " + str(
+                                      data_month[4][0]) + "\nГлубина просмотра - " + str(data_month[5][0]) + "\nСредняя длительность посещения в секундах - " + str(
+                                      data_month[6][0])
+                                  )
         if (call.data == "Сводка_Квартал"):
             r_get_svodka_qortal = requests.get(YM.general_url + YM.time + YM.ids + str(row[0]) + "&" + YM.preset + YM.traffic + "&" + YM.date1 + "90daysAgo" + "&" + YM.date2 + "today" + "&" + YM.oauth_token + row[1])
             data_qortal = json.loads(r_get_svodka_qortal.text)["totals"]
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                   text="Визиты - " + str(data_qortal[0][0]) + "\nПоситители - " + str(
-                                      data_qortal[1][0]) + "\nПросмотры - " + str(data_qortal[2][0]) + "\nОтказы - " + str(
-                                      data_qortal[3][0]) + "\nГлубина просмотра - " + str(
-                                      data_qortal[4][0]) + "\nСредняя длительность посещения в секундах - " + str(
-                                      data_qortal[5][0]))
+                                      data_qortal[1][0]) + "\nПросмотры - " + str(data_qortal[2][0]) + "\nПроцент новых пользователей - " + str(
+                                      data_qortal[3][0]) + "\nОтказы -" + str(
+                                      data_qortal[4][0]) + "\nГлубина просмотра -  " + str(
+                                      data_qortal[5][0]) + "\nСредняя длительность посещения в секундах - " + str(
+                                      data_qortal[6][0])
+                                  )
         if (call.data == "Сводка_Год"):
             r_get_svodka_year = requests.get(YM.general_url + YM.time + YM.ids + str(row[0]) + "&" + YM.preset + YM.traffic + "&" + YM.date1 + "90daysAgo" + "&" + YM.date2 + "today" + "&" + YM.oauth_token + row[1])
             data_year = json.loads(r_get_svodka_year.text)["totals"]
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                   text="Визиты - " + str(data_year[0][0]) + "\nПоситители - " + str(
-                                      data_year[1][0]) + "\nПросмотры - " + str(data_year[2][0]) + "\nОтказы - " + str(
-                                      data_year[3][0]) + "\nГлубина просмотра - " + str(
-                                      data_year[4][0]) + "\nСредняя длительность посещения в секундах - " + str(
-                                      data_year[5][0]))
+                                      data_year[1][0]) + "\nПросмотры - " + str(data_year[2][0]) + "\nПроцент новых пользователей - " + str(
+                                      data_year[3][0]) + "\nОтказы - " + str(
+                                      data_year[4][0]) + "\nГлубина просмотра - " + str(
+                                      data_year[5][0]) + "\nСредняя длительность посещения в секундах - " + str(
+                                      data_year[6][0])
+                                  )
 
 
     except TypeError:
@@ -182,9 +191,12 @@ def handler_command_postoffice(message):
             cur.execute("SELECT id_metric, token FROM users WHERE id_users = " + str(message.chat.id))
             row = cur.fetchone()
 
+            print(str(row[1]))
+
             get_post = requests.get("https://postoffice.yandex.ru/api/1.0/stat-list?oauth_token="+row[1]+"&email="+message.text.split(" ")[1])
+            print(get_post.text)
             data_post = json.loads(get_post.text)
-            bot.send_message(message.chat.id, "Общее кол-во сообщений "+ str(data_post["list"]['messages'])
+            bot.send_message(message.chat.id, "Общее кол-во сообщений "+ str(data_post['list']['messages'])
                              +"\nКол-во прочитанных сообщений получателями "+ str(data_post['list']['read'])
                              +"\nКол-во не прочитанных сообщений получателями "+str(data_post['list']['not_read'])
                              +"\nКол-во сообщений помеченные как спам " + str(data_post['list']['spam']))
@@ -193,8 +205,8 @@ def handler_command_postoffice(message):
 
     except KeyError:
         bot.send_message(message.chat.id, "Данных нет.")
-    except:
-        bot.send_message(message.chat.id,"Что-то не так! Наши программисты у же бегут исправлять ошибку!")
+    except TypeError as err:
+        bot.send_message(message.chat.id,"Что-то не так! Наши программисты у же бегут исправлять ошибку! " + str(err))
 
 @bot.message_handler(commands=['advice'])
 def handler_command_Advice(message):
@@ -227,25 +239,29 @@ def handler_command_start(message):
                                       "\n /info <сайт> - информация с Яндекс.Вебмастер."
                                       "\n /managerDirect -  СКОРО!"
                                       "\nЕсли есть какие - то пожелания, вопросы или жалобы обращайтесь к моему создателю @marat_sher!")
+
 @bot.message_handler(content_types=["text"])
 def handler_messages_hello(message): # Название функции не играет никакой роли, в принципе
 
     global token
+    removeMakup = telebot.types.ReplyKeyboardRemove(True)
 
     try:
 
         if message.text == "Привет" :
             bot.send_message(message.chat.id, "Привет!")
+
         if message.text == "Да! Давайте начнём!":
+            bot.send_message(message.chat.id,text="Хорошо! Поехали!",reply_markup=removeMakup)
             inlineMakup = telebot.types.InlineKeyboardMarkup() #Создаём мень клавиатуры
             inleneButton = telebot.types.InlineKeyboardButton(text="Подтвердить!", url=YM.url_For_Users_OAuth_Check) #Кнопка для перехода на сайт подтверждения
 
             inlineMakup.add(inleneButton) #Добовляем кнопку в клавиатуру
 
-            bot.send_message(message.chat.id, "\xd0Хорошо! Поехали! Прежде всего нужно дать согласие на сбор данных с яндекс.метрики и других сервисов.(Внимание! Ваши личные данные не обрабатываются.) Не беспокойтесь. Перейдите по ссылке ниже для этого. После согласия вы получите код подтверждения. Пожалуйста, введите его.", reply_markup=inlineMakup)
+            bot.send_message(message.chat.id, "Прежде всего нужно дать согласие на сбор данных с яндекс.метрики и других сервисов.(Внимание! Ваши личные данные не обрабатываются. Не беспокойтесь). Перейдите по ссылке ниже для этого. После согласия вы получите код подтверждения. Пожалуйста, введите его.", reply_markup=inlineMakup)
 
         if message.text == "Нет. Не сейчас.":
-            bot.send_message(message.chat.id, "Мы вас поняли!")
+            bot.send_message(message.chat.id, "Мы вас поняли!",reply_markup=removeMakup)
 
         if re.match(const.pattern_for_check_code, message.text): #Если введён код полтверждения
             #параметры и заголовки
@@ -288,7 +304,7 @@ def handler_messages_hello(message): # Название функции не иг
 
 
 
-    except:
+    except Exception :
         bot.send_message(message.chat.id,"Что-то не так! Наши программисты у же бегут исправлять ошибку!")
 
 def go():
