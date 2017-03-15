@@ -1,5 +1,1 @@
-pyTelegramBotAPI==2.3.0
-requests==2.7.0
-six==1.10.0
-telebot==0.0.3
-virtualenv==15.1.0
+python-telegram-bot
