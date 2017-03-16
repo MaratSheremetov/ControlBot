@@ -1,1 +1,1 @@
-worker: python3 src/main.py
+bot: python main.py
